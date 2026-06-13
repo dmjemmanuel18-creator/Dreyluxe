@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyD1ZL3Wxj8J5Zna9fFW71E_7lcfEv8--rM",
@@ -80,10 +80,24 @@ export function formatAccountDate(isoString) {
 }
 
 export function watchAccount(callback) {
-  return onAuthStateChanged(auth, (user) => {
+  return onAuthStateChanged(auth, async (user) => {
     if (user) {
       persistAccount(user);
+
+      // Trigger immediate UI update with cached/auth data
       callback(user, { source: "firebase", isAuthenticated: true });
+
+      // Background sync: Fetch latest profile from Firestore
+      try {
+        const docSnap = await getDoc(doc(db, "profiles", user.uid));
+        if (docSnap.exists()) {
+          saveProfile(docSnap.data());
+          // Re-trigger callback so UI (like Profile or Checkout forms) populates with cloud data
+          callback(user, { source: "firebase", isAuthenticated: true });
+        }
+      } catch (error) {
+        console.warn("Profile background sync skipped:", error);
+      }
       return;
     }
 
