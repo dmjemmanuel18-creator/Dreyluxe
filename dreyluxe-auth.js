@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyD1ZL3Wxj8J5Zna9fFW71E_7lcfEv8--rM",
@@ -48,6 +48,7 @@ export function persistAccount(user, additionalData = {}) {
 export function clearStoredAccount() {
   localStorage.removeItem(ACCOUNT_STORAGE_KEY);
   localStorage.removeItem(PROFILE_STORAGE_KEY);
+  localStorage.removeItem("dreyluxe_cart_v1");
 }
 
 export function readProfile() {
@@ -60,6 +61,10 @@ export function readProfile() {
 
 export function saveProfile(profileData) {
   localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
+  if (auth.currentUser) {
+    setDoc(doc(db, "profiles", auth.currentUser.uid), profileData, { merge: true })
+      .catch((err) => console.warn("Cloud profile sync failed:", err));
+  }
   return profileData;
 }
 
@@ -101,6 +106,7 @@ export function watchAccount(callback) {
       return;
     }
 
+    clearStoredAccount();
     const currentStoredAccount = readStoredAccount();
     callback(currentStoredAccount, {
       source: currentStoredAccount ? "storage" : "firebase",

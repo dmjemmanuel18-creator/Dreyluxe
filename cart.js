@@ -1,3 +1,7 @@
+import { auth, db } from "./dreyluxe-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
 const CART_STORAGE_KEY = "dreyluxe_cart_v1";
 const CART_UPDATED_EVENT = "dreyluxe:cart-updated";
 
@@ -17,10 +21,17 @@ function readCart() {
   }
 }
 
-function writeCart(cartItems) {
+function writeCart(cartItems, syncToCloud = true) {
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
   window.dispatchEvent(new CustomEvent(CART_UPDATED_EVENT, { detail: { cartItems } }));
   updateCartBadges();
+
+  if (syncToCloud && auth.currentUser) {
+    setDoc(doc(db, "carts", auth.currentUser.uid), {
+      items: cartItems,
+      updatedAt: new Date().toISOString()
+    }).catch((error) => console.warn("Cart cloud sync failed:", error));
+  }
 }
 
 function cartLineKey(productId, size, color) {
@@ -146,3 +157,20 @@ export function showCartFeedback(message) {
     toast.classList.remove("is-visible");
   }, 2600);
 }
+
+// --- Account-based Cart Hydration ---
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    try {
+      const docSnap = await getDoc(doc(db, "carts", user.uid));
+      if (docSnap.exists()) {
+        const cloudItems = docSnap.data().items || [];
+        writeCart(cloudItems, false); // Update locally without triggering another cloud save
+      }
+    } catch (error) {
+      console.warn("Could not fetch cloud cart:", error);
+    }
+  } else {
+    writeCart([], false); // Clear local cart on logout for privacy
+  }
+});
