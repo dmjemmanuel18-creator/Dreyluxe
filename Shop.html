@@ -33,10 +33,11 @@
       </nav>
 
       <div class="header-buttons">
-        <a class="header-signup account-link" data-account-link href="profile.html" hidden>
-          <span data-account-link-label>Profile</span>
-        </a>
+        <span class="signed-in-text" data-account-link hidden>Signed in</span>
+        <button class="header-signup signout-btn" data-account-link type="button" hidden>Sign out</button>
         <a class="header-signup auth-link" data-auth-link href="Signin.html">Sign in</a>
+        <a class="header-signup auth-link" data-auth-link href="signup.html">Sign up</a>
+
         <div class="header-cta-group" aria-label="Shop actions">
           <a class="header-action" href="Shop.html">Shop now</a>
           <a class="header-cart" href="cart.html" aria-label="Open cart">
@@ -49,6 +50,14 @@
             <span class="cart-badge">0</span>
           </a>
         </div>
+
+        <a class="header-profile-btn" data-account-link href="profile.html" aria-label="View Profile" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
       </div>
     </header>
     <main class="shop-main">
