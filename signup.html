@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | Dreyluxe Gospel Fashion</title>
+  <meta name="description" content="Create a Dreyluxe account to save your profile, cart, and checkout details." />
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Cinzel:wght@700;800;900&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="homepage.css" />
+</head>
+
+<body>
+  <div class="auth-page">
+    <header class="auth-header">
+      <a class="brand" href="homepage.html" aria-label="Go to Dreyluxe homepage">
+      <a class="brand" href="index.html" aria-label="Go to Dreyluxe homepage">
+        <span class="brand-mark">
+          <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" />
+        </span>
+        <span class="dreyluxe-word">Dreyluxe</span>
+      </a>
+
+      <nav class="auth-nav" aria-label="Primary navigation">
+        <a href="homepage.html">Home</a>
+        <a href="index.html">Home</a>
+        <a href="Shop.html">Shop</a>
+        <a href="homepage.html#contact">Contact</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="ghost-action" href="Signin.html">Sign in</a>
+        <a class="gold-action" href="Shop.html">Shop now</a>
+      </div>
+    </header>
+
+    <main class="auth-layout signup-layout">
+      <section class="auth-story" aria-label="Dreyluxe account benefits">
+        <div class="story-logo">
+          <img src="Dreyluxe-logo-svg.png" alt="" />
+        </div>
+        <h1>Create an account built around your next order.</h1>
+        <p>
+          Your Dreyluxe profile keeps account details, checkout contact info, and cart context together.
+        </p>
+        <div class="benefit-list compact-benefits">
+          <div>
+            <strong>Start faster</strong>
+            <span>Set up your profile once and use it again at checkout.</span>
+          </div>
+          <div>
+            <strong>Shop with context</strong>
+            <span>Your cart summary and account details live in one place.</span>
+          </div>
+          <div>
+            <strong>Stay connected</strong>
+            <span>Keep the right email and contact details ready for order follow-up.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-card" aria-labelledby="signup-title">
+        <div class="card-heading">
+          <span>New account</span>
+          <h2 id="signup-title">Sign up</h2>
+          <p>Fill in your details once. You can update them later from your profile.</p>
+        </div>
+
+        <form class="signup-form" id="signup-form" novalidate>
+          <div class="field-group">
+            <label for="username">Name</label>
+            <input type="text" id="username" name="username" autocomplete="name" placeholder="Your name" required />
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="new-password"
+              placeholder="Create a password" required />
+          </div>
+
+          <div class="password-requirements">
+            <p>Password must contain:</p>
+            <ul id="password-constraints">
+              <li id="req-length">At least 8 characters</li>
+              <li id="req-upper">One uppercase letter</li>
+              <li id="req-lower">One lowercase letter</li>
+              <li id="req-num">One number</li>
+            </ul>
+          </div>
+
+          <div class="field-group">
+            <label for="confirm-password">Confirm password</label>
+            <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password"
+              placeholder="Repeat your password" required />
+          </div>
+
+          <label class="check-row terms-row" for="terms">
+            <input type="checkbox" id="terms" required />
+            <span>I want a Dreyluxe account for profile, cart, and checkout details.</span>
+          </label>
+
+          <p class="form-status" id="signup-status" role="status" aria-live="polite"></p>
+
+          <button class="submit-button" type="submit">Create account</button>
+        </form>
+
+        <div class="social-divider"><span>Or continue with</span></div>
+
+        <div class="social-login-options">
+          <button type="button" id="google-btn" class="social-btn" aria-label="Sign up with Google">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.733s3.773-8.733 8.6-8.733c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+            </svg>
+            Google
+          </button>
+        </div>
+
+        <p class="switch-copy">Already have an account? <a href="Signin.html">Sign in</a>.</p>
+      </section>
+    </main>
+
+    <footer class="auth-footer">
+      <span>&copy; <span data-year>2026</span> <span class="dreyluxe-word">Dreyluxe</span></span>
+      <a href="homepage.html#contact">Contact Dreyluxe</a>
+      <a href="index.html#contact">Contact Dreyluxe</a>
+    </footer>
+  </div>
+
+  <script type="module" src="signup.js"></script>
+</body>
+
+</html>

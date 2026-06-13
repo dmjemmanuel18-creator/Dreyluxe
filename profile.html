@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Profile | Dreyluxe Gospel Fashion</title>
+  <meta name="description" content="Manage your Dreyluxe profile, contact details, saved cart, and checkout path." />
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Cinzel:wght@700;800;900&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="homepage.css" />
+  <link rel="stylesheet" href="profile.css" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="site-header profile-header">
+      <a class="brand" href="homepage.html" aria-label="Go to Dreyluxe homepage">
+      <a class="brand" href="index.html" aria-label="Go to Dreyluxe homepage">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
+        </span>
+        <span class="brand-name dreyluxe-word">Dreyluxe</span>
+      </a>
+
+      <nav class="site-nav profile-nav" aria-label="Primary navigation">
+        <a href="homepage.html">Home</a>
+        <a href="index.html">Home</a>
+        <a href="Shop.html">Shop</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="homepage.html#contact">Contact</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="header-signup signout-btn" type="button" data-sign-out hidden>Sign out</button>
+        <a class="header-signup" data-auth-link href="Signin.html">Sign in</a>
+        <div class="header-cta-group" aria-label="Shop actions">
+          <a class="header-action" href="Shop.html">Shop now</a>
+          <a class="header-cart" href="cart.html" aria-label="Open cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="profile-main">
+      <section class="profile-hero" aria-labelledby="profile-title">
+        <div>
+          <a class="breadcrumb-link" href="Shop.html">Back to shop</a>
+          <h1 id="profile-title">Your Dreyluxe Profile</h1>
+          <p>Manage the account and checkout details attached to your Dreyluxe cart.</p>
+        </div>
+
+        <article class="identity-card" data-profile-content hidden>
+          <div class="avatar" data-account-initials>DL</div>
+          <div>
+            <span>Signed in as</span>
+            <h2 data-account-name>Dreyluxe Member</h2>
+            <p data-account-email></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="logged-out-panel" data-logged-out hidden>
+        <h2>Sign in to view your profile</h2>
+        <p>Your profile connects your account details to your cart and checkout form.</p>
+        <div class="panel-actions">
+          <a class="button button-primary" href="Signin.html">Sign in</a>
+          <a class="button button-secondary" href="signup.html">Create account</a>
+        </div>
+      </section>
+
+      <section class="profile-grid" data-profile-content hidden>
+        <form class="profile-panel profile-form" id="profile-form">
+          <div class="panel-heading">
+            <span>Saved details</span>
+            <h2>Contact profile</h2>
+            <p>These details are reused on checkout so your cart can connect to the right account.</p>
+          </div>
+
+          <div class="profile-fields">
+            <label>
+              Full name
+              <input type="text" id="full-name" name="fullName" autocomplete="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" id="profile-email" name="email" autocomplete="email" required />
+            </label>
+            <label>
+              Phone
+              <input type="tel" id="profile-phone" name="phone" autocomplete="tel" placeholder="+234" required />
+            </label>
+            <label>
+              City
+              <input type="text" id="profile-city" name="city" autocomplete="address-level2" placeholder="Lagos"
+                required />
+            </label>
+            <label class="wide-field">
+              Delivery address
+              <textarea id="profile-address" name="address" rows="4" autocomplete="street-address" required></textarea>
+            </label>
+            <label class="wide-field">
+              Order note
+              <textarea id="profile-note" name="note" rows="3"
+                placeholder="Preferred delivery timing, sizing note, or contact instruction"></textarea>
+            </label>
+          </div>
+
+          <p class="form-status" id="profile-status" role="status" aria-live="polite"></p>
+          <button class="button button-primary" type="submit" id="save-profile-btn">Save profile details</button>
+          <button class="button button-primary" type="button" id="edit-profile-btn" hidden>Edit profile
+            details</button>
+        </form>
+
+        <aside class="profile-panel cart-detail-panel" aria-label="Profile cart details">
+          <div class="panel-heading">
+            <span>Cart details</span>
+            <h2>Your saved cart</h2>
+            <p>Items here are stored on this device and used on the checkout page.</p>
+          </div>
+
+          <div class="profile-cart-list" id="profile-cart-list"></div>
+
+          <div class="profile-total">
+            <span>Subtotal</span>
+            <strong id="profile-cart-subtotal">NGN 0</strong>
+          </div>
+
+          <div class="panel-actions">
+            <a class="button button-primary" href="checkout.html">Continue to checkout</a>
+            <a class="button button-secondary" href="cart.html">Edit cart</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
+        <strong class="dreyluxe-word">Dreyluxe</strong>
+        <span>&copy; <span data-year>2026</span> <span class="dreyluxe-word dreyluxe-inline">Dreyluxe</span>.
+          Faith-inspired clothing brand</span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="profile.js"></script>
+</body>
+
+</html>
