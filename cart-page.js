@@ -10,6 +10,10 @@ import {
   showCartFeedback,
   updateCartItem
 } from "./cart.js";
+import {
+  syncAccountLinks,
+  bindSignOut
+} from "./dreyluxe-auth.js";
 
 const cartItemsContainer = document.getElementById("cart-items");
 const emptyCart = document.getElementById("cart-empty");
@@ -20,6 +24,8 @@ const copyOrderButton = document.getElementById("copy-order");
 const year = document.querySelector("[data-year]");
 
 setupCartBadge();
+syncAccountLinks();
+bindSignOut("[data-sign-out]", "index.html");
 
 if (year) {
   year.textContent = new Date().getFullYear();
