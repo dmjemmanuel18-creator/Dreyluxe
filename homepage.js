@@ -1,10 +1,10 @@
-import { setupCartBadge } from "../Products/cart.js";
+import { setupCartBadge } from "./cart.js";
 import {
     auth,
     watchAccount,
     bindSignOut,
     syncAccountLinks
-} from "../assets/js/dreyluxe-auth.js";
+} from "./dreyluxe-auth.js";
 
 const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
@@ -30,4 +30,4 @@ watchAccount((user) => {
     }
 });
 
-bindSignOut(".signout-btn", "../Homepage/homepage.html");
+bindSignOut(".signout-btn", "index.html");

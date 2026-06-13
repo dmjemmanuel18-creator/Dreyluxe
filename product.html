@@ -2,143 +2,159 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details | Dreyluxe Gospel Fashion</title>
-  <meta name="description"
-    content="View Dreyluxe product details, choose a size and color, and add gospel streetwear pieces to your cart." />
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Cinzel:wght@700;800;900&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../Homepage/homepage.css" />
-  <link rel="stylesheet" href="product.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | Dreyluxe Gospel Fashion</title>
+    <meta name="description"
+        content="View Dreyluxe product details, choose a size and color, and add gospel streetwear pieces to your cart." />
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Cinzel:wght@700;800;900&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="homepage.css" />
+    <link rel="stylesheet" href="product.css" />
 </head>
 
 <body>
-  <div class="page-shell">
-    <header class="site-header product-header">
-      <a class="brand" href="homepage.html" aria-label="Go to Dreyluxe homepage">
-        <span class="brand-mark" aria-hidden="true">
-          <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
-        </span>
-        <span class="brand-name dreyluxe-word">Dreyluxe</span>
-      </a>
+    <div class="page-shell">
+        <header class="site-header product-header">
+            <a class="brand" href="index.html" aria-label="Go to Dreyluxe homepage">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
+                </span>
+                <span class="brand-name dreyluxe-word">Dreyluxe</span>
+            </a>
 
-      <nav class="site-nav product-nav" aria-label="Primary navigation">
-        <a href="homepage.html">Home</a>
-        <a href="Shop.html">Shop</a>
-        <a href="homepage.html#contact">Contact</a>
-      </nav>
+            <nav class="site-nav product-nav" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="Shop.html">Shop</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
 
-      <div class="header-buttons">
-        <a class="header-action" href="Shop.html">Shop</a>
-        <a class="header-signup header-cart" href="cart.html" aria-label="Open cart">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" class="cart-icon" aria-hidden="true">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <span class="cart-badge">0</span>
-        </a>
-      </div>
-    </header>
-
-    <main class="product-main" id="top">
-      <section class="product-state" data-product-state>
-        <div class="product-gallery" aria-label="Product gallery">
-          <div class="product-stage">
-            <img id="product-main-image" src="" alt="" />
-          </div>
-          <div class="thumbnail-row" id="product-thumbnails" aria-label="Choose product image"></div>
-        </div>
-
-        <form class="product-summary" id="product-form">
-          <a class="breadcrumb-link" href="Shop.html">Back to shop</a>
-          <p class="product-type" data-product-type></p>
-          <h1 data-product-name></h1>
-          <p class="product-price" data-product-price></p>
-          <p class="product-description" data-product-description></p>
-          <p class="product-story" data-product-story></p>
-
-          <div class="option-group">
-            <div class="option-label">
-              <span>Color</span>
-              <strong data-selected-color></strong>
+            <div class="header-buttons">
+                <span class="signed-in-text" data-account-link hidden>Signed in</span>
+                <button class="header-signup signout-btn" data-account-link type="button" hidden>Sign out</button>
+                <a class="header-signup auth-link" data-auth-link href="Signin.html">Sign in</a>
+                <a class="header-signup auth-link" data-auth-link href="signup.html">Sign up</a>
+                <div class="header-cta-group" aria-label="Shop actions">
+                    <a class="header-action" href="Shop.html">Shop now</a>
+                    <a class="header-cart" href="cart.html" aria-label="Open cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon"
+                            aria-hidden="true">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+                <a class="header-profile-btn" data-account-link href="profile.html" aria-label="View Profile" hidden>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
             </div>
-            <div class="option-buttons" id="color-options"></div>
-          </div>
+        </header>
 
-          <div class="option-group">
-            <div class="option-label">
-              <span>Size</span>
-              <strong data-selected-size></strong>
-            </div>
-            <div class="option-buttons" id="size-options"></div>
-          </div>
+        <main class="product-main" id="top">
+            <section class="product-state" data-product-state>
+                <div class="product-gallery" aria-label="Product gallery">
+                    <div class="product-stage">
+                        <img id="product-main-image" src="" alt="" />
+                    </div>
+                    <div class="thumbnail-row" id="product-thumbnails" aria-label="Choose product image"></div>
+                </div>
 
-          <div class="purchase-row">
-            <div class="quantity-stepper" aria-label="Quantity selector">
-              <button type="button" data-quantity-action="decrease" aria-label="Decrease quantity">-</button>
-              <input id="quantity" name="quantity" type="number" min="1" value="1" inputmode="numeric" />
-              <button type="button" data-quantity-action="increase" aria-label="Increase quantity">+</button>
-            </div>
-            <button class="button button-primary add-cart-button" type="submit">
-              <span>Add to Cart</span>
-            </button>
-          </div>
+                <form class="product-summary" id="product-form">
+                    <a class="breadcrumb-link" href="Shop.html">Back to shop</a>
+                    <p class="product-type" data-product-type></p>
+                    <h1 data-product-name></h1>
+                    <p class="product-price" data-product-price></p>
+                    <p class="product-description" data-product-description></p>
+                    <p class="product-story" data-product-story></p>
 
-          <div class="product-notes" aria-label="Product fulfilment notes">
+                    <div class="option-group">
+                        <div class="option-label">
+                            <span>Color</span>
+                            <strong data-selected-color></strong>
+                        </div>
+                        <div class="option-buttons" id="color-options"></div>
+                    </div>
+
+                    <div class="option-group">
+                        <div class="option-label">
+                            <span>Size</span>
+                            <strong data-selected-size></strong>
+                        </div>
+                        <div class="option-buttons" id="size-options"></div>
+                    </div>
+
+                    <div class="purchase-row">
+                        <div class="quantity-stepper" aria-label="Quantity selector">
+                            <button type="button" data-quantity-action="decrease"
+                                aria-label="Decrease quantity">-</button>
+                            <input id="quantity" name="quantity" type="number" min="1" value="1" inputmode="numeric" />
+                            <button type="button" data-quantity-action="increase"
+                                aria-label="Increase quantity">+</button>
+                        </div>
+                        <button class="button button-primary add-cart-button" type="submit">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+
+                    <div class="product-notes" aria-label="Product fulfilment notes">
+                        <div>
+                            <strong>Availability</strong>
+                            <span data-product-availability></span>
+                        </div>
+                        <div>
+                            <strong>Fit</strong>
+                            <span data-product-fit></span>
+                        </div>
+                        <div>
+                            <strong>Checkout</strong>
+                            <span>Cart saves on this device until you are ready to order.</span>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="product-details-grid" aria-label="Product information">
+                <article>
+                    <h2>Details</h2>
+                    <ul data-product-features></ul>
+                </article>
+                <article>
+                    <h2>Care</h2>
+                    <ul data-product-care></ul>
+                </article>
+            </section>
+
+            <section class="related-section" aria-labelledby="related-title">
+                <div class="related-heading">
+                    <h2 id="related-title">You May Also Like</h2>
+                    <a class="text-link" href="Shop.html">View all</a>
+                </div>
+                <div class="related-grid" id="related-products"></div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
             <div>
-              <strong>Availability</strong>
-              <span data-product-availability></span>
+                <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
+                <strong class="dreyluxe-word">Dreyluxe</strong>
+                <span>&copy; <span data-year="">2026</span> <span class="dreyluxe-word dreyluxe-inline">Dreyluxe</span>.
+                    Faith-inspired clothing brand</span>
             </div>
-            <div>
-              <strong>Fit</strong>
-              <span data-product-fit></span>
-            </div>
-            <div>
-              <strong>Checkout</strong>
-              <span>Cart saves on this device until you are ready to order.</span>
-            </div>
-          </div>
-        </form>
-      </section>
+        </footer>
+    </div>
 
-      <section class="product-details-grid" aria-label="Product information">
-        <article>
-          <h2>Details</h2>
-          <ul data-product-features></ul>
-        </article>
-        <article>
-          <h2>Care</h2>
-          <ul data-product-care></ul>
-        </article>
-      </section>
-
-      <section class="related-section" aria-labelledby="related-title">
-        <div class="related-heading">
-          <h2 id="related-title">You May Also Like</h2>
-          <a class="text-link" href="Shop.html">View all</a>
-        </div>
-        <div class="related-grid" id="related-products"></div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div>
-        <img src="Dreyluxe-logo-svg.png" alt="Dreyluxe brand logo" class="brand-logo header-logo" />
-        <strong class="dreyluxe-word">Dreyluxe</strong>
-        <span>&copy; <span data-year="">2026</span> <span class="dreyluxe-word dreyluxe-inline">Dreyluxe</span>.
-          Faith-inspired clothing brand</span>
-      </div>
-    </footer>
-  </div>
-
-  <script type="module" src="product.js"></script>
+    <script type="module" src="product.js"></script>
 </body>
 
 </html>

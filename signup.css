@@ -1,4 +1,4 @@
-@import url("../Signin-page/Signin.css");
+@import url("Signin.css");
 
 .signup-layout {
   grid-template-columns: minmax(0, 0.95fr) minmax(410px, 520px);

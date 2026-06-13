@@ -187,7 +187,6 @@ export function syncAccountLinks() {
   });
 }
 
-export function bindSignOut(selector = "[data-sign-out]", redirectHref = "homepage.html") {
 export function bindSignOut(selector = "[data-sign-out]", redirectHref = "index.html") {
   document.querySelectorAll(selector).forEach((button) => {
     button.addEventListener("click", async () => {
