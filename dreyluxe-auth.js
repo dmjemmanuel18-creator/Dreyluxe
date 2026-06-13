@@ -24,133 +24,66 @@ export const googleProvider = new GoogleAuthProvider();
 
 export const ACCOUNT_STORAGE_KEY = "dreyluxe_account_v1";
 export const PROFILE_STORAGE_KEY = "dreyluxe_profile_v1";
-const LEGACY_LOGIN_KEY = "dreyluxe_user_logged_in";
 
-function readJson(key, fallback = null) {
+// --- Added Missing Storage Utility Helpers ---
+export function readStoredAccount() {
   try {
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : fallback;
-  } catch (error) {
-    console.warn(`Could not read ${key}:`, error);
-    return fallback;
+    return JSON.parse(localStorage.getItem(ACCOUNT_STORAGE_KEY));
+  } catch {
+    return null;
   }
 }
 
-function writeJson(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-export function readStoredAccount(includeLegacy = true) {
-  const account = readJson(ACCOUNT_STORAGE_KEY, null);
-
-  if (account && typeof account === "object") {
-    return account;
-  }
-
-  if (includeLegacy && localStorage.getItem(LEGACY_LOGIN_KEY) === "true") {
-    return {
-      uid: "",
-      email: "",
-      displayName: "Dreyluxe Member",
-      photoURL: "",
-      providerId: "local",
-      signedInAt: ""
-    };
-  }
-
-  return null;
-}
-
-export function persistAccount(user, extras = {}) {
-  const storedAccount = readStoredAccount(false) || {};
-  const providerId = user?.providerData?.[0]?.providerId || extras.providerId || storedAccount.providerId || "password";
-  const displayName = user?.displayName || extras.displayName || extras.username || storedAccount.displayName || "";
-
-  const account = {
-    ...storedAccount,
-    uid: user?.uid || extras.uid || storedAccount.uid || "",
-    email: user?.email || extras.email || storedAccount.email || "",
-    displayName,
-    username: extras.username || storedAccount.username || displayName,
-    photoURL: user?.photoURL || extras.photoURL || storedAccount.photoURL || "",
-    providerId,
-    signedInAt: new Date().toISOString()
+export function persistAccount(user, additionalData = {}) {
+  if (!user) return;
+  const accountData = {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName || additionalData.displayName || "",
+    ...additionalData
   };
-
-  writeJson(ACCOUNT_STORAGE_KEY, account);
-  localStorage.setItem(LEGACY_LOGIN_KEY, "true");
-  window.dispatchEvent(new CustomEvent("dreyluxe:account-updated", { detail: { account } }));
-  return account;
+  localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(accountData));
 }
 
 export function clearStoredAccount() {
   localStorage.removeItem(ACCOUNT_STORAGE_KEY);
-  localStorage.removeItem(LEGACY_LOGIN_KEY);
-  window.dispatchEvent(new CustomEvent("dreyluxe:account-updated", { detail: { account: null } }));
+  localStorage.removeItem(PROFILE_STORAGE_KEY);
 }
 
 export function readProfile() {
-  return readJson(PROFILE_STORAGE_KEY, {}) || {};
+  try {
+    return JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY)) || {};
+  } catch {
+    return {};
+  }
 }
 
-export function saveProfile(profileDetails) {
-  const profile = {
-    ...readProfile(),
-    ...profileDetails,
-    updatedAt: new Date().toISOString()
-  };
-
-  writeJson(PROFILE_STORAGE_KEY, profile);
-  window.dispatchEvent(new CustomEvent("dreyluxe:profile-updated", { detail: { profile } }));
-  return profile;
+export function saveProfile(profileData) {
+  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
+  return profileData;
 }
 
 export function getAccountLabel(account) {
-  return account?.displayName || account?.username || account?.email || "Dreyluxe Member";
+  if (!account) return "Guest";
+  return account.displayName || account.email || "User";
 }
 
 export function getAccountInitials(account) {
-  const label = getAccountLabel(account)
-    .replace(/@.*/, "")
-    .trim();
-  const parts = label.split(/\s+/).filter(Boolean);
-
-  if (parts.length === 0) {
-    return "DL";
-  }
-
-  return parts
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
+  const label = getAccountLabel(account);
+  if (label === "Guest") return "G";
+  return label.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
 }
 
-export function formatAccountDate(value) {
-  if (!value) {
-    return "Recently";
-  }
-
-  try {
-    return new Intl.DateTimeFormat("en-NG", {
-      dateStyle: "medium",
-      timeStyle: "short"
-    }).format(new Date(value));
-  } catch (error) {
-    return "Recently";
-  }
+export function formatAccountDate(isoString) {
+  if (!isoString) return "N/A";
+  return new Date(isoString).toLocaleDateString("en-NG", { dateStyle: "medium" });
 }
 
 export function watchAccount(callback) {
-  const storedAccount = readStoredAccount();
-
-  if (storedAccount) {
-    callback(storedAccount, { source: "storage", isAuthenticated: true });
-  }
-
   return onAuthStateChanged(auth, (user) => {
     if (user) {
-      callback(persistAccount(user), { source: "firebase", isAuthenticated: true });
+      persistAccount(user);
+      callback(user, { source: "firebase", isAuthenticated: true });
       return;
     }
 
