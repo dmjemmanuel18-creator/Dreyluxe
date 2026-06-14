@@ -36,7 +36,6 @@ body {
   line-height: 1.5;
   opacity: 0;
   overflow-x: hidden;
-  transform: translateY(-20px);
   animation: rise 0.8s ease forwards;
 }
 
@@ -79,6 +78,11 @@ button {
 }
 
 .auth-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -489,7 +493,6 @@ p {
 @keyframes rise {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -521,6 +524,7 @@ p {
 }
 
 @media (max-width: 640px) {
+
   .auth-header,
   .auth-layout,
   .auth-footer {
@@ -560,6 +564,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

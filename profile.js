@@ -1,4 +1,3 @@
-// Fixed broken folder structure path traversals
 import { inventory } from "./products-data.js";
 import {
   formatPrice,
@@ -17,7 +16,7 @@ import {
   saveProfile,
   syncAccountLinks,
   watchAccount,
-  readStoredAccount // Added missing local declaration requirement
+  readStoredAccount
 } from "./dreyluxe-auth.js";
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -46,6 +45,26 @@ if (year) {
 setupCartBadge();
 syncAccountLinks();
 bindSignOut("[data-sign-out]", "index.html");
+
+const fixHeader = () => {
+  const header = document.querySelector("header");
+  if (header) {
+    header.style.setProperty("position", "fixed", "important");
+    header.style.setProperty("top", "0", "important");
+    header.style.setProperty("left", "0", "important");
+    header.style.setProperty("right", "0", "important");
+    header.style.setProperty("width", "100%", "important");
+    header.style.setProperty("max-width", "100vw", "important");
+    header.style.setProperty("box-sizing", "border-box", "important");
+    header.style.setProperty("z-index", "1000", "important");
+    header.style.setProperty("padding-left", "20px", "important");
+    header.style.setProperty("padding-right", "20px", "important");
+    document.body.style.paddingTop = `${header.offsetHeight + 20}px`;
+  }
+};
+fixHeader();
+window.addEventListener("load", fixHeader);
+window.addEventListener("resize", fixHeader);
 
 function toggleFormEditing(isEditing) {
   if (!profileForm) return;
@@ -83,7 +102,7 @@ watchAccount((account) => {
   if (isLoggedIn) {
     if (initialsElement) initialsElement.textContent = getAccountInitials(account);
     if (accountEmail) accountEmail.textContent = account.email || "No email verified";
-    
+
     const localProfile = readProfile();
     populateProfileFields(localProfile);
     toggleFormEditing(false);

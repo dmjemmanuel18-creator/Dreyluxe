@@ -45,7 +45,6 @@ body {
   font-family: "Manrope", Arial, sans-serif;
   line-height: 1.5;
   opacity: 0;
-  transform: translateY(-20px);
   animation: rise 0.8s ease forwards;
   overflow-x: hidden;
 }
@@ -77,9 +76,11 @@ input {
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 20;
+  left: 0;
+  right: 0;
+  z-index: 10000;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -1522,7 +1523,6 @@ h1 {
 @keyframes rise {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

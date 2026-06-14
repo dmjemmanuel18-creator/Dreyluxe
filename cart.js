@@ -158,19 +158,20 @@ export function showCartFeedback(message) {
   }, 2600);
 }
 
-// --- Account-based Cart Hydration ---
+
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
       const docSnap = await getDoc(doc(db, "carts", user.uid));
       if (docSnap.exists()) {
         const cloudItems = docSnap.data().items || [];
-        writeCart(cloudItems, false); // Update locally without triggering another cloud save
+        writeCart(cloudItems, false);
       }
     } catch (error) {
       console.warn("Could not fetch cloud cart:", error);
     }
   } else {
-    writeCart([], false); // Clear local cart on logout for privacy
+    writeCart([], false);
   }
 });
