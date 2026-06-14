@@ -525,7 +525,6 @@ p {
 
 @media (max-width: 640px) {
 
-  .auth-header,
   .auth-layout,
   .auth-footer {
     width: min(100% - 28px, var(--max-width));

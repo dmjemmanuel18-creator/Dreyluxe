@@ -85,9 +85,9 @@ input {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 16px;
-  width: min(var(--max-width), calc(100% - 40px));
-  margin: 0 auto;
-  padding: 14px 0;
+  width: 100%;
+  margin: 0;
+  padding: 14px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(18px);
 }
@@ -1575,7 +1575,6 @@ h1 {
 
 @media (max-width: 680px) {
 
-  .site-header,
   .hero-section,
   .promise-strip,
   .collection-section,

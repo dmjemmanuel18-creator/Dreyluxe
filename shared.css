@@ -9,13 +9,13 @@ body {
 }
 
 /* Fixed Header Styles */
-.site-header.is-fixed {
+header.is-fixed {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    width: min(var(--max-width), calc(100% - 40px)) !important;
-    margin: 0 auto !important;
+    width: 100% !important;
+    margin: 0 !important;
     box-sizing: border-box !important;
     z-index: 1000 !important;
     background-color: rgba(255, 255, 255, 0.05) !important;
