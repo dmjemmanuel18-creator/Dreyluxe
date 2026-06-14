@@ -1,5 +1,5 @@
 import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { auth, syncAccountLinks } from "./dreyluxe-auth.js";
+import { auth, syncAccountLinks, bindSignOut } from "./dreyluxe-auth.js";
 
 const resetForm = document.querySelector("#reset-form");
 const emailInput = document.querySelector("#reset-email");
@@ -8,6 +8,7 @@ const submitButton = document.querySelector("#send-reset-btn");
 const year = document.querySelector("[data-year]");
 
 syncAccountLinks();
+bindSignOut(".signout-btn", "index.html");
 
 if (year) {
   year.textContent = new Date().getFullYear();

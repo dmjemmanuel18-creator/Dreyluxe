@@ -9,6 +9,7 @@ import {
   getAccountLabel,
   readProfile,
   saveProfile,
+  bindSignOut,
   syncAccountLinks,
   watchAccount
 } from "./dreyluxe-auth.js";
@@ -36,6 +37,7 @@ let activeAccount = null;
 
 setupCartBadge();
 syncAccountLinks();
+bindSignOut(".signout-btn", "index.html");
 
 const fixHeader = () => {
   const header = document.querySelector("header");

@@ -1,6 +1,6 @@
 import { inventory } from "./products-data.js";
 import { addToCart, formatPrice, setupCartBadge, showCartFeedback } from "./cart.js";
-import { syncAccountLinks } from "./dreyluxe-auth.js";
+import { syncAccountLinks, bindSignOut } from "./dreyluxe-auth.js";
 
 const shopGrid = document.getElementById("shop-grid");
 const filterButtons = document.querySelectorAll(".filter-btn");
@@ -12,6 +12,7 @@ if (year) {
 
 setupCartBadge();
 syncAccountLinks();
+bindSignOut(".signout-btn", "index.html");
 
 const fixHeader = () => {
   const header = document.querySelector("header");
