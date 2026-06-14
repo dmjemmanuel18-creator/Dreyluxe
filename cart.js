@@ -123,8 +123,16 @@ export function clearCart() {
 export function updateCartBadges() {
   const cartCount = getCartCount();
   document.querySelectorAll(".cart-badge").forEach((badge) => {
-    badge.textContent = String(cartCount);
-    badge.setAttribute("aria-label", `${cartCount} item${cartCount === 1 ? "" : "s"} in cart`);
+    const nextCount = String(cartCount);
+
+    if (badge.textContent !== nextCount) {
+      badge.textContent = nextCount;
+      badge.setAttribute("aria-label", `${cartCount} item${cartCount === 1 ? "" : "s"} in cart`);
+
+      badge.classList.remove("is-updating");
+      void badge.offsetWidth;
+      badge.classList.add("is-updating");
+    }
   });
 }
 
@@ -132,7 +140,7 @@ function injectFloatingCart() {
   if (document.querySelector(".floating-cart")) return;
   const headerCart = document.querySelector(".header-cart");
   const cartHtml = `
-    <a class="floating-cart" href="cart.html" aria-label="Open cart">
+    <a class="floating-cart" href="cart.html" aria-label="Open cart" data-floating-cart>
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="21" r="1"></circle>
         <circle cx="20" cy="21" r="1"></circle>
@@ -168,11 +176,20 @@ export function showCartFeedback(message) {
     document.body.appendChild(toast);
   }
 
+  // Trigger pulse animation on the floating cart
+  const floatingCart = document.querySelector(".floating-cart");
+  if (floatingCart) {
+    floatingCart.classList.remove("is-pulsing");
+    void floatingCart.offsetWidth; // Trigger reflow
+    floatingCart.classList.add("is-pulsing");
+  }
+
   toast.textContent = message;
   toast.classList.add("is-visible");
   window.clearTimeout(showCartFeedback.hideTimer);
   showCartFeedback.hideTimer = window.setTimeout(() => {
     toast.classList.remove("is-visible");
+    if (floatingCart) floatingCart.classList.remove("is-pulsing");
   }, 2600);
 }
 
