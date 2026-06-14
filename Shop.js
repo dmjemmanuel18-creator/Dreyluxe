@@ -44,12 +44,14 @@ function renderProducts(productsToDisplay) {
   shopGrid.innerHTML = productsToDisplay
     .map((product) => `
       <article class="shop-card">
-        <a class="card-media" href="product.html?id=${product.id}" aria-label="View ${escapeHtml(product.name)}">
+        <div class="card-media">
           <span class="product-type-badge">${escapeHtml(product.type)}</span>
           <img src="${product.image}" alt="${escapeHtml(product.alt)}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x500/123125/d9aa45?text=Dreyluxe'">
-        </a>
+        </div>
         <div class="card-content">
-          <h3 class="card-title">${escapeHtml(product.name)}</h3>
+          <h3 class="card-title">
+            <a href="product.html?id=${product.id}" class="stretched-link">${escapeHtml(product.name)}</a>
+          </h3>
           <p class="card-desc">${escapeHtml(product.description)}</p>
           <div class="card-footer">
             <span class="card-price">${formatPrice(product.price)}</span>
