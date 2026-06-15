@@ -3,7 +3,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signOut
+  signOut,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -34,21 +35,28 @@ export function readStoredAccount() {
   }
 }
 
-export function persistAccount(user, additionalData = {}) {
+/**
+ * Syncs the Firebase user's profile photo with their Google account photo if they differ.
+ * This ensures the app always has the most recent avatar from the provider.
+ */
+export async function syncGoogleProfilePicture(user) {
   if (!user) return;
-  const accountData = {
-    uid: user.uid,
-    email: user.email,
-    displayName: user.displayName || additionalData.displayName || "",
-    ...additionalData
-  };
-  localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(accountData));
+
+  const googleProfile = user.providerData.find(p => p.providerId === 'google.com');
+
+  if (googleProfile && googleProfile.photoURL && user.photoURL !== googleProfile.photoURL) {
+    try {
+      await updateProfile(user, { photoURL: googleProfile.photoURL });
+      console.log("Profile picture successfully updated to match Google!");
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+    }
+  }
 }
 
 export function clearStoredAccount() {
   localStorage.removeItem(ACCOUNT_STORAGE_KEY);
   localStorage.removeItem(PROFILE_STORAGE_KEY);
-  localStorage.removeItem("dreyluxe_cart_v1");
 }
 
 export function readProfile() {
@@ -59,13 +67,26 @@ export function readProfile() {
   }
 }
 
-export function saveProfile(profileData) {
+export async function saveProfile(profileData) {
   localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
   if (auth.currentUser) {
-    setDoc(doc(db, "profiles", auth.currentUser.uid), profileData, { merge: true })
+    return setDoc(doc(db, "profiles", auth.currentUser.uid), profileData, { merge: true })
       .catch((err) => console.warn("Cloud profile sync failed:", err));
   }
   return profileData;
+}
+
+export async function persistAccount(user, additionalData = {}) {
+  if (!user) return;
+  const accountData = {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName || additionalData.displayName || "",
+    photoURL: user.photoURL || additionalData.photoURL || "",
+    ...additionalData
+  };
+  localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(accountData));
+  return Promise.resolve(accountData);
 }
 
 export function getAccountLabel(account) {
@@ -87,17 +108,16 @@ export function formatAccountDate(isoString) {
 export function watchAccount(callback) {
   return onAuthStateChanged(auth, async (user) => {
     if (user) {
+      await syncGoogleProfilePicture(user);
+
       persistAccount(user);
 
-      // Trigger immediate UI update with cached/auth data
       callback(user, { source: "firebase", isAuthenticated: true });
 
-      // Background sync: Fetch latest profile from Firestore
       try {
         const docSnap = await getDoc(doc(db, "profiles", user.uid));
         if (docSnap.exists()) {
           saveProfile(docSnap.data());
-          // Re-trigger callback so UI (like Profile or Checkout forms) populates with cloud data
           callback(user, { source: "firebase", isAuthenticated: true });
         }
       } catch (error) {
@@ -117,7 +137,6 @@ export function watchAccount(callback) {
 
 export function syncAccountLinks() {
   return watchAccount((account) => {
-    // Ensure floating cart exists and header cart is removed
     if (!document.querySelector(".floating-cart")) {
       const headerCart = document.querySelector(".header-cart");
       const cartHtml = `
@@ -167,6 +186,7 @@ export function bindSignOut(selector = "[data-sign-out]", redirectHref = "index.
       }
 
       clearStoredAccount();
+      localStorage.removeItem("dreyluxe_cart_v1");
       window.location.href = redirectHref;
     });
   });

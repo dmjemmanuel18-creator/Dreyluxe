@@ -206,7 +206,5 @@ onAuthStateChanged(auth, async (user) => {
     } catch (error) {
       console.warn("Could not fetch cloud cart:", error);
     }
-  } else {
-    writeCart([], false);
   }
 });

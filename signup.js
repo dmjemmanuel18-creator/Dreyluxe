@@ -8,7 +8,8 @@ import {
     googleProvider,
     persistAccount,
     saveProfile,
-    syncAccountLinks
+    syncAccountLinks,
+    syncGoogleProfilePicture
 } from "./dreyluxe-auth.js";
 
 const signupForm = document.querySelector("#signup-form");
@@ -109,8 +110,11 @@ signupForm.addEventListener("submit", async (event) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(userCredential.user, { displayName });
-        persistAccount(userCredential.user, { displayName, username: displayName, email });
-        saveProfile({ fullName: displayName, email });
+        
+        // ADDED AWAIT HERE to pause before redirecting
+        await persistAccount(userCredential.user, { displayName, username: displayName, email });
+        await saveProfile({ fullName: displayName, email });
+        
         setStatus("Account created. Returning to index...");
         window.location.href = "index.html";
     } catch (error) {
@@ -128,11 +132,15 @@ if (googleButton) {
 
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            persistAccount(result.user);
-            saveProfile({
+            await syncGoogleProfilePicture(result.user);
+            
+            // ADDED AWAIT HERE to pause before redirecting
+            await persistAccount(result.user);
+            await saveProfile({
                 fullName: result.user.displayName || "",
                 email: result.user.email || ""
             });
+            
             setStatus("Account connected with Google. Returning to index...");
             window.location.href = "index.html";
         } catch (error) {

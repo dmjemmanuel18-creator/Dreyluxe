@@ -61,7 +61,10 @@ signinForm.addEventListener("submit", async (event) => {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        persistAccount(userCredential.user);
+        
+        // ADDED AWAIT HERE
+        await persistAccount(userCredential.user);
+        
         setStatus("Signed in. Returning to index...");
         window.location.href = "index.html";
     } catch (error) {
@@ -79,7 +82,9 @@ if (googleButton) {
 
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            persistAccount(result.user);
+            
+            await persistAccount(result.user);
+            
             setStatus("Signed in with Google. Returning to index...");
             window.location.href = "index.html";
         } catch (error) {
