@@ -38,7 +38,6 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(90deg, rgba(217, 170, 69, 0.05) 1px, transparent 1px) 0 0 / 82px 82px,
     radial-gradient(circle at 18% 14%, rgba(47, 122, 93, 0.38), transparent 33%),
     linear-gradient(135deg, var(--purple-950), var(--purple-900) 44%, #0f0418);
   color: var(--cream);
@@ -528,16 +527,6 @@ input {
   padding: clamp(44px, 7vw, 88px) 0 clamp(44px, 7vw, 72px);
 }
 
-.hero-section::after {
-  content: "";
-  position: absolute;
-  right: -76px;
-  bottom: 36px;
-  width: min(48vw, 560px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 209, 123, 0.58), transparent);
-}
-
 #hero-title span {
   font-size: clamp(2rem, 12vw, 5.5rem);
   white-space: nowrap;
@@ -715,32 +704,6 @@ h1 {
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
 }
 
-.hero-showcase::before {
-  content: "";
-  position: absolute;
-  inset: 42px 82px 38px 26px;
-  border: 1px solid rgba(245, 209, 123, 0.26);
-  border-radius: var(--radius);
-  transform: rotate(-3deg);
-}
-
-.hero-showcase::after {
-  content: "";
-  position: absolute;
-  right: 170px;
-  bottom: 160px;
-  width: 90px;
-  height: 2px;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(245, 209, 123, 0.65),
-      transparent);
-
-  transform: rotate(25deg);
-  transform-origin: center;
-  pointer-events: none;
-}
-
 .halo-frame {
   position: absolute;
   inset: 0 90px 34px 0;
@@ -764,15 +727,6 @@ h1 {
   inset: 26px;
   border: 1px solid rgba(245, 209, 123, 0.2);
   border-radius: 6px;
-}
-
-.halo-frame::after {
-  top: 32px;
-  right: -44px;
-  width: 88px;
-  height: 88px;
-  border-top: 1px solid rgba(245, 209, 123, 0.58);
-  border-right: 1px solid rgba(245, 209, 123, 0.58);
 }
 
 .shirt-placeholder {
@@ -867,17 +821,6 @@ h1 {
   background:
     linear-gradient(90deg, rgba(245, 209, 123, 0.12) 1px, transparent 1px) 0 0 / 22px 22px,
     linear-gradient(145deg, #123125, #06140d);
-}
-
-.mini-card::before {
-  content: "";
-  position: absolute;
-  left: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 2px;
-  background: rgba(245, 209, 123, 0.65);
 }
 
 .mini-card::after {
@@ -1511,12 +1454,6 @@ h1 {
 
   .hero-showcase {
     min-height: auto;
-  }
-
-  .hero-showcase::before,
-  .hero-section::after,
-  .halo-frame::after {
-    display: none;
   }
 
   .halo-frame,

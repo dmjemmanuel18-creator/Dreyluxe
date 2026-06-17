@@ -8,11 +8,15 @@ import {
   removeFromCart,
   setupCartBadge,
   showCartFeedback,
-  updateCartItem
+  updateCartItem,
+  updatePaymentTelegramLinks
 } from "./cart.js";
 import {
   syncAccountLinks,
-  bindSignOut
+  bindSignOut,
+  watchAccount,
+  readProfile,
+  getAccountLabel
 } from "./dreyluxe-auth.js";
 
 const cartItemsContainer = document.getElementById("cart-items");
@@ -24,8 +28,15 @@ const copyOrderButton = document.getElementById("copy-order");
 const year = document.querySelector("[data-year]");
 
 setupCartBadge();
+updatePaymentTelegramLinks(".cart-main");
 syncAccountLinks();
 bindSignOut("[data-sign-out]", "index.html");
+
+watchAccount((account) => {
+  const profile = readProfile();
+  const name = profile.fullName || getAccountLabel(account);
+  updatePaymentTelegramLinks(".cart-main", name);
+});
 
 const fixHeader = () => {
   const header = document.querySelector("header");

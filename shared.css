@@ -43,7 +43,6 @@ button {
 body {
     margin: 0;
     background:
-        linear-gradient(90deg, rgba(217, 170, 69, 0.05) 1px, transparent 1px) 0 0 / 82px 82px,
         radial-gradient(circle at 18% 14%, rgba(47, 122, 93, 0.38), transparent 33%),
         linear-gradient(135deg, var(--purple-950), var(--purple-900) 44%, #0f0418);
     color: var(--cream);
@@ -279,7 +278,7 @@ body::before {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.site-footer > div:first-child {
+.site-footer>div:first-child {
     display: grid;
     gap: 4px;
 }
@@ -346,6 +345,7 @@ body::before {
 }
 
 @media (max-width: 680px) {
+
     .auth-footer,
     .site-footer {
         flex-direction: column;

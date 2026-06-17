@@ -3,7 +3,8 @@ import {
   formatPrice,
   getCartItems,
   getCartSubtotal,
-  setupCartBadge
+  setupCartBadge,
+  updatePaymentTelegramLinks
 } from "./cart.js";
 import {
   auth,
@@ -43,6 +44,7 @@ if (year) {
 }
 
 setupCartBadge();
+updatePaymentTelegramLinks(".profile-main");
 syncAccountLinks();
 bindSignOut("[data-sign-out]", "index.html");
 
@@ -97,6 +99,8 @@ watchAccount((account) => {
     const localProfile = readProfile();
     populateProfileFields(localProfile);
     toggleFormEditing(false);
+
+    updatePaymentTelegramLinks(".profile-main", localProfile.fullName || getAccountLabel(account));
   }
 });
 

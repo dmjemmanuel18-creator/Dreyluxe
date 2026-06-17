@@ -176,11 +176,10 @@ export function showCartFeedback(message) {
     document.body.appendChild(toast);
   }
 
-  // Trigger pulse animation on the floating cart
   const floatingCart = document.querySelector(".floating-cart");
   if (floatingCart) {
     floatingCart.classList.remove("is-pulsing");
-    void floatingCart.offsetWidth; // Trigger reflow
+    void floatingCart.offsetWidth;
     floatingCart.classList.add("is-pulsing");
   }
 
@@ -193,7 +192,18 @@ export function showCartFeedback(message) {
   }, 2600);
 }
 
+export function updatePaymentTelegramLinks(selector, userName = "__________") {
+  const container = document.querySelector(selector);
+  if (!container) return;
 
+  const links = container.querySelectorAll('a[href*="t.me/"]');
+  const encodedName = encodeURIComponent(userName);
+  const orderUrl = `https://t.me/Drey_szn?text=Hello%20Dreyluxe!%20I%20just%20submitted%20an%20order.%20My%20name%20is%20${encodedName}`;
+
+  links.forEach(link => {
+    link.href = orderUrl;
+  });
+}
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {

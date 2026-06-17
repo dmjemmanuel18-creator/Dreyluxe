@@ -3,7 +3,8 @@ import {
   formatPrice,
   getCartItems,
   getCartSubtotal,
-  setupCartBadge
+  setupCartBadge,
+  updatePaymentTelegramLinks
 } from "./cart.js";
 import {
   getAccountLabel,
@@ -36,6 +37,7 @@ const fieldIds = {
 let activeAccount = null;
 
 setupCartBadge();
+updatePaymentTelegramLinks(".checkout-main");
 syncAccountLinks();
 bindSignOut(".signout-btn", "index.html");
 
@@ -176,6 +178,9 @@ watchAccount((account) => {
     ? `${account.email} is connected to this checkout.`
     : "Sign in to connect this checkout to your profile.";
   populateCheckoutFields(account);
+
+  const name = readProfile()?.fullName || getAccountLabel(account);
+  updatePaymentTelegramLinks(".checkout-main", name);
 });
 
 checkoutForm.addEventListener("submit", (event) => {
